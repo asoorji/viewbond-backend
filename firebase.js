@@ -10,5 +10,5 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const User = db.collection("Users");
-module.exports = User;
+const movies = db.collection("movies");
+module.exports = movies;
