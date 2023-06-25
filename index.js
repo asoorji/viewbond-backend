@@ -1,11 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const movies = require("./firebase");
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", async (req, res) => {
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get("/movies", async (req, res) => {
   const snapshot = await movies.get();
   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   res.send(list);
@@ -18,12 +24,16 @@ app.post("/create", async (req, res) => {
 });
 
 app.post("/update", async (req, res) => {
-  const id = req.body.id;
-  delete req.body.id;
-  const data = req.body;
-  await movies.doc(id).update(data);
-  res.send({ msg: "Updated" });
+  try {
+    const { id, ...data } = req.body;
+    await moviesCollection.doc(id).set(data, { merge: true });
+    res.send({ msg: "Updated" });
+  } catch (error) {
+    console.error("Error updating movie:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
+
 
 app.post("/delete", async (req, res) => {
   const id = req.body.id;

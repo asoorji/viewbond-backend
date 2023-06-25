@@ -1,0 +1,244 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Movie API",
+    "version": "1.0.0",
+    "description": "API for managing movies"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get all movies",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new movie",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieCreatePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "description": "Success message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update": {
+      "post": {
+        "summary": "Update a movie",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieUpdatePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "description": "Success message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete": {
+      "post": {
+        "summary": "Delete a movie",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieDeletePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string",
+                      "description": "Success message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The movie ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the movie"
+          },
+          "year": {
+            "type": "integer",
+            "description": "The year of release for the movie"
+          },
+          "director": {
+            "type": "string",
+            "description": "The name of the movie's director"
+          },
+          "genre": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The genre(s) of the movie"
+          },
+          "rating": {
+            "type": "number",
+            "description": "The rating or score given to the movie"
+          },
+          "streamingUrl": {
+            "type": "string",
+            "description": "The streaming URL for the movie"
+          }
+        }
+      },
+      "MovieCreatePayload": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the movie"
+          },
+          "year": {
+            "type": "integer",
+            "description": "The year of release for the movie"
+          },
+          "director": {
+            "type": "string",
+            "description": "The name of the movie's director"
+          },
+          "genre": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The genre(s) of the movie"
+          },
+          "rating": {
+            "type": "number",
+            "description": "The rating or score given to the movie"
+          },
+          "streamingUrl": {
+            "type": "string",
+            "description": "The streaming URL for the movie"
+          }
+        }
+      },
+      "MovieUpdatePayload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the movie to update"
+          },
+          "title": {
+            "type": "string",
+            "description": "The updated title of the movie"
+          },
+          "year": {
+            "type": "integer",
+            "description": "The updated year of release for the movie"
+          },
+          "director": {
+            "type": "string",
+            "description": "The updated name of the movie's director"
+          },
+          "genre": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The updated genre(s) of the movie"
+          },
+          "rating": {
+            "type": "number",
+            "description": "The updated rating or score given to the movie"
+          },
+          "streamingUrl": {
+            "type": "string",
+            "description": "The updated streaming URL for the movie"
+          }
+        }
+      },
+      "MovieDeletePayload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the movie to delete"
+          }
+        }
+      }
+    }
+  }
+}
